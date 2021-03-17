@@ -69,4 +69,4 @@ def main():
 	bvp = SecondDegreeBVP(ode, bvo, 0, 1)
 	print(bvp.fin_diff(1000))
 
-main()
+#main()
