@@ -1,7 +1,5 @@
 from fin_diff_ode import *
-import numpy as np 
-import matplotlib.pyplot as plt 
-
+import numpy as np
 
 a2 = lambda x: -1.0 / x
 a1 = lambda x: 1 / x**2

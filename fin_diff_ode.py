@@ -3,8 +3,6 @@ import numpy as np
 import scipy.sparse as sp
 from scipy.sparse.linalg import spsolve
 
-import matplotlib.pyplot as plt
-
 class SecondDegreeBVO:
 	def __init__(self, alpha1, beta1, gamma1, alpha2, beta2, gamma2):
 		self.alpha1 = alpha1
@@ -14,7 +12,7 @@ class SecondDegreeBVO:
 		self.beta2 = beta2
 		self.gamma2 = gamma2
 
-class SecondDegreeODE: 
+class SecondDegreeODE:
 	def __init__(self, a0, a1, a2, f):
 		self.a0 = a0
 		self.a1 = a1
@@ -57,16 +55,3 @@ class SecondDegreeBVP:
 
 		c = spsolve(A,b)
 		return c
-
-def main():
-	a2 = lambda x: -(1.0+x)
-	a1 = lambda x: -1.0
-	a0 = lambda x: 2.0
-	f = lambda x: x
-
-	ode = SecondDegreeODE(a0, a1, a2, f)
-	bvo = SecondDegreeBVO(1, 0, 1, 1, 1, 0)
-	bvp = SecondDegreeBVP(ode, bvo, 0, 1)
-	print(bvp.fin_diff(1000))
-
-#main()
