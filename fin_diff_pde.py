@@ -92,9 +92,9 @@ def get_grid(a,b,h):
 def eval_on_grid(a, b, M, N, f):
 	h = a / M
 	k = b / N
-	y = np.zeros(M * N)
-	for j in range(N):
-		for i in range(M):
-			y[i + j * M] = f(i * h, j * k)
+	y = np.zeros((M+1) * (N+1))
+	for j in range(N+1):
+		for i in range(M+1):
+			y[i + j * (M+1)] = f(i * h, j * k)
 
 	return y

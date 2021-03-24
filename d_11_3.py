@@ -10,11 +10,11 @@ g = lambda x,y: y / ((x+1)**2 + y**2)
 it = 9
 hs = np.zeros(it)
 errors = np.zeros(it)
-N = 4
+N = 3
 for i in range(it):
 	h = 1 / N
-	approx = solve_dirichlet_rectangle(p, q, f, g, a = 1, b = 1, h = h)
-	ref_sol = eval_on_grid(a=1, b=1, M = N + 1, N = N + 1, f = g)
+	approx = solve_dirichlet_rectangle(p, q, f, g, a = 1, b = 1, h = h).reshape((N+1,N+1))
+	ref_sol = eval_on_grid(a = 1, b = 1, M = N, N = N, f = g).reshape((N+1,N+1))
 	error = np.max(np.fabs(approx - ref_sol))
 	hs[i] = h
 	errors[i] = error
@@ -22,7 +22,7 @@ for i in range(it):
 
 ln_hs = np.log(hs)
 ln_e = np.log(errors)
-(m,b) = np.polyfit(ln_hs,ln_e, deg = 1)
+(m,b) = np.polyfit(ln_hs, ln_e, deg = 1)
 
 plt.plot(ln_hs, ln_e)
 plt.plot(ln_hs, m * ln_hs + b, label = 'm = %3.2f, b = %3.2f' % (m,b))
