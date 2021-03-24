@@ -2,7 +2,6 @@ import math
 import numpy as np
 import scipy.sparse as sp
 from scipy.sparse.linalg import spsolve
-import matplotlib.pyplot as plt
 
 # Computes an approximate solution to the Dirichlet problem
 #

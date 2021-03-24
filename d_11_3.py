@@ -1,3 +1,7 @@
+from fin_diff_pde import *
+import numpy as np
+import matplotlib.pyplot as plt
+
 p = lambda x,y: 1.0
 q = lambda x,y: 0.0
 f = lambda x,y: 0.0
