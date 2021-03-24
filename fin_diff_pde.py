@@ -9,7 +9,7 @@ from scipy.sparse.linalg import spsolve
 #	                        u = g  on boundary of D   
 #
 # where D = [0,a] x [0,b].
-def solve_dirichlet_rectangle(p, q, f, g, a, b, h): 
+def solve_dirichlet_rectangle(p, q, f, g, a, b, h):
 	M = round(a / h) + 1
 	N = round(b / h) + 1
 	hm2 = 1 / (h * h)
@@ -81,6 +81,13 @@ def solve_dirichlet_rectangle(p, q, f, g, a, b, h):
 	A = sp.csc_matrix((A_data, (row_ind, col_ind)), shape=(M * N, M * N))
 	c = spsolve(A, y)
 	return c
+
+def get_grid(a,b,h):
+	M = round(a / h) + 1
+	N = round(b / h) + 1
+	x = np.linspace(0, a, M)
+	y = np.linspace(0, b, N)
+	return np.meshgrid(x,y)
 
 def eval_on_grid(a, b, M, N, f):
 	h = a / M
