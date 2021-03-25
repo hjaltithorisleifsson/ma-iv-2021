@@ -5,8 +5,8 @@ from scipy.sparse.linalg import spsolve
 
 # Computes an approximate solution to the Dirichlet problem
 #
-#   -div(p * grad(u)) + q * u = f  on interior of D
-#	                        u = g  on boundary of D   
+#    -div(p * grad(u)) + q * u = f  on interior of D
+#                            u = g  on boundary of D   
 #
 # where D = [0,a] x [0,b].
 def solve_dirichlet_rectangle(p, q, f, g, a, b, h):
@@ -20,21 +20,24 @@ def solve_dirichlet_rectangle(p, q, f, g, a, b, h):
 	A_data = [0.0] * n_non_zero
 	y = np.zeros(M * N)
 
+	A_idx = 0
 	idx = 0
 
 	for i in range(M):
-		row_ind.append(idx)
-		col_ind.append(idx)
-		A_data.append(1.0)
+		row_ind[A_idx] = idx
+		col_ind[A_idx] = idx
+		A_data[A_idx] = 1.0
 		y[idx] = g(h * i, 0)
 		idx += 1
+		A_idx += 1
 
 	for j in range(1, N-1):
-		row_ind.append(idx)
-		col_ind.append(idx)
-		A_data.append(1.0)
+		row_ind[A_idx] = idx
+		col_ind[A_idx] = idx
+		A_data[A_idx] = 1.0
 		y[idx] = g(0, j * h)
 		idx += 1
+		A_idx += 1
 
 		for i in range(1, M-1):
 			p_e = p((i + 0.5) * h, j * h)
@@ -42,39 +45,46 @@ def solve_dirichlet_rectangle(p, q, f, g, a, b, h):
 			p_w = p((i - 0.5) * h, j * h)
 			p_s = p(i * h, (j - 0.5) * h)
 
-			row_ind.append(idx)
-			col_ind.append(idx)
-			A_data.append(hm2 * (p_e + p_n + p_w + p_s) + q(i*h, j*h))
+			row_ind[A_idx] = idx
+			col_ind[A_idx] = idx
+			A_data[A_idx] = hm2 * (p_e + p_n + p_w + p_s) + q(i*h, j*h)
+			A_idx += 1
 
-			row_ind.append(idx)
-			col_ind.append(idx + 1)
-			A_data.append(-p_e * hm2)
+			row_ind[A_idx] = idx
+			col_ind[A_idx] = idx + 1
+			A_data[A_idx] = -p_e * hm2
+			A_idx += 1
 
-			row_ind.append(idx)
-			col_ind.append(idx - 1)
-			A_data.append(-p_w * hm2)
+			row_ind[A_idx] = idx
+			col_ind[A_idx] = idx - 1
+			A_data[A_idx] = -p_w * hm2
+			A_idx += 1
 
-			row_ind.append(idx)
-			col_ind.append(idx - M)
-			A_data.append(-p_s * hm2)
+			row_ind[A_idx] = idx
+			col_ind[A_idx] = idx - M
+			A_data[A_idx] = -p_s * hm2
+			A_idx += 1
 
-			row_ind.append(idx)
-			col_ind.append(idx + M)
-			A_data.append(-p_n * hm2)
+			row_ind[A_idx] = idx
+			col_ind[A_idx] = idx + M
+			A_data[A_idx] = -p_n * hm2
+			A_idx += 1
 
 			y[idx] = f(i*h, j*h)
 			idx += 1
 
-		row_ind.append(idx)
-		col_ind.append(idx)
-		A_data.append(1.0)
+		row_ind[A_idx] = idx
+		col_ind[A_idx] = idx
+		A_data[A_idx] = 1.0
+		A_idx += 1
 		y[idx] = g(a, j*h)
 		idx += 1
 
 	for i in range(M):
-		row_ind.append(idx)
-		col_ind.append(idx)
-		A_data.append(1.0)
+		row_ind[A_idx] = idx
+		col_ind[A_idx] = idx
+		A_data[A_idx] = 1
+		A_idx += 1
 		y[idx] = g(h*i, b)
 		idx += 1
 
