@@ -13,8 +13,8 @@ errors = np.zeros(it)
 N = 3
 for i in range(it):
 	h = 1 / N
-	approx = solve_dirichlet_rectangle(p, q, f, g, a = 1, b = 1, h = h).reshape((N+1,N+1))
-	ref_sol = eval_on_grid(a = 1, b = 1, M = N, N = N, f = g).reshape((N+1,N+1))
+	approx = solve_dirichlet_rectangle(p, q, f, g, a = 1, b = 1, h = h)
+	ref_sol = eval_on_grid(a = 1, b = 1, M = N, N = N, f = g)
 	error = np.max(np.fabs(approx - ref_sol))
 	hs[i] = h
 	errors[i] = error

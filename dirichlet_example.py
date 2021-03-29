@@ -2,12 +2,12 @@ from fin_diff_pde import *
 import numpy as np
 import matplotlib.pyplot as plt
 
-p = lambda x,y: 1.0
-q = lambda x,y: 0.0
+p = lambda x,y: x**2 + y**2
+q = lambda x,y: 1.0
 f = lambda x,y: 0.0
 g = lambda x,y: np.cos(x * y + 2 * x + y)
 
-N = 1000
+N = 100
 a = np.pi
 b = np.pi
 h = np.pi / N

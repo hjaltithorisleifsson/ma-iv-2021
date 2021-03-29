@@ -1,4 +1,4 @@
-from fin_diff_ode import *
+from bvp_ode import *
 import numpy as np 
 import matplotlib.pyplot as plt
 
@@ -17,7 +17,7 @@ for i in range(10):
 	N = 3 * 2 ** i
 	Ns.append(N)
 	x = np.linspace(1,2,N + 1)
-	c = bvp.fin_diff(N)
+	c = bvp.fdm(N)
 	u = x * np.log(x) - x
 	max_error = np.max(np.fabs(u - c))
 	errors.append(max_error)
@@ -27,7 +27,7 @@ plt.show()
 
 #N = 3
 #x = np.linspace(1,2,N + 1)
-#c = bvp.fin_diff(N)
+#c = bvp.fdm(N)
 #u = x * np.log(x) - x
 #print(c)
 #max_error = np.max(np.fabs(u - c))
