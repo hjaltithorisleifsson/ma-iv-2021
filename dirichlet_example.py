@@ -12,11 +12,10 @@ a = np.pi
 b = np.pi
 h = np.pi / N
 
-approx = solve_dirichlet_rectangle(p, q, f, g, a, b, h).reshape((N + 1, N + 1))
-grid = get_grid(a, b, h)
+approx = solve_dirichlet_rectangle(p, q, f, g, a, b, h).reshape((N+1, N+1))
+x,y = np.meshgrid(np.linspace(0, a, N+1), np.linspace(0, b, N+1))
 
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-(x,y) = get_grid(a,b,h)
 surf = ax.plot_surface(x, y, approx)
 plt.show()

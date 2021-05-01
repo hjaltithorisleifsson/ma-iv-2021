@@ -6,7 +6,7 @@ from scipy.sparse.linalg import spsolve
 # Computes an approximate solution to the Dirichlet problem
 #
 #    -div(p * grad(u)) + q * u = f  on interior of D
-#                            u = g  on boundary of D   
+#                            u = g  on boundary of D
 #
 # where D = [0,a] x [0,b].
 def solve_dirichlet_rectangle(p, q, f, g, a, b, h):
@@ -91,20 +91,3 @@ def solve_dirichlet_rectangle(p, q, f, g, a, b, h):
 	A = sp.csc_matrix((A_data, (row_ind, col_ind)), shape=(M * N, M * N))
 	c = spsolve(A, y)
 	return c
-
-def get_grid(a,b,h):
-	M = round(a / h) + 1
-	N = round(b / h) + 1
-	x = np.linspace(0, a, M)
-	y = np.linspace(0, b, N)
-	return np.meshgrid(x,y)
-
-def eval_on_grid(a, b, M, N, f):
-	h = a / M
-	k = b / N
-	y = np.zeros((M+1) * (N+1))
-	for j in range(N+1):
-		for i in range(M+1):
-			y[i + j * (M+1)] = f(i * h, j * k)
-
-	return y
